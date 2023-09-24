@@ -147,7 +147,7 @@
         lision. Middle: Beeping to alert pedestrians and create
         space for the robot. Right: Interactive voice interaction,
         enabling proactive avoidance requests from either the robot
-        or pedestrians (our approach)
+        or pedestrians.
       </h2>
     </div>
   </div>
@@ -163,8 +163,10 @@
         <div class="content">
           <h2 class="title is-3">HSAC-LLM (Active request)</h2>
           <p>
-            Using <i>nerfies</i> you can create fun visual effects. This Dolly zoom effect
-            would be impossible without nerfies since it would require going through a wall.
+            The Robot proactively sends voice avoidance requests after detecting collision risk.
+            Ask the pedestrian margin to his closer side.
+            <br>
+            <br>
           </p>
           <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
             <source src="./static/videos/hallway_active.mp4"
@@ -180,8 +182,9 @@
         <div class="columns is-centered">
           <div class="column content">
             <p>
-              As a byproduct of our method, we can also solve the matting problem by ignoring
-              samples that fall outside of a bounding box during rendering.
+              After receiving the pedestrian's state of his moving trajectory to the left side,
+              the robot promptly shifts its position to the opposite side to avert a collision
+              and responds with its next intended move.
             </p>
             <video id="matting-video" autoplay controls muted loop playsinline="100%">
               <source src="./static/videos/hallway_passive_on_your_left.mp4"
