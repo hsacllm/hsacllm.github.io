@@ -72,9 +72,9 @@
           </div>
 
           <div class="is-size-5 publication-authors">
-            <span class="author-block"><sup>1</sup>New York University Abu Dhabi</span>
-            <span class="author-block"><sup>2</sup>New York University</span>
-            <span class="author-block"><sup>3</sup>Tsinghua University</span>
+            <span class="author-block"><sup>1</sup>NYUAD Center for Artificial Intelligence and Robotics</span>
+            <span class="author-block"><sup>2</sup>NYU Tandon school of engineering</span>
+            <span class="author-block"><sup>3</sup>Tsinghua University Shool of Software</span>
           </div>
 
           <div class="column has-text-centered">
@@ -258,6 +258,46 @@
 
 <section class="section">
   <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Approach</h2>
+        <div class="content has-text-justified has-text-centered">
+          <img src="static/images/Fig_flowchart_v2.png" />
+          <h3 class="title is-4">Preprocessing</h3>
+          <p>
+            Raw observations like radar scans, pedestrian position, and speed information from the environment
+            will be processed by <i>Img_PreNet</i> built by convolutional and fully connected layers. Pedestrian's vocal
+            messages will be handled by <i>Lang_PreNet</i> built with LLM into action state vectors. Finally <i>State_PreNet</i>
+            built by one fully connected layer will combine previously processed data with the robot's position info into a
+            512-dimensional vector state used for the HSAC-LLM algorithm.
+          </p>
+          <h3 class="title is-4">HSAC(Hybrid Soft Actor Critic) Module</h3>
+          <p>
+            The behavior of the robot involves both continuous and discrete elements. We categorize
+            the robot’s motion controls, angular and linear velocities,
+            as continuous actions, while post-interaction decisions are
+            discrete actions. HSAC was used to model both continuous and discrete
+            robot actions.
+          </p>
+          <h3 class="title is-4">LLM(Large Language Model) Module</h3>
+          <img src="static/images/Fig_LLM_detail.png" />
+          <p>
+            LLM was introduced to serve as a conduit between discrete action codes and intuitive voice
+            messages. Through the presentation of prompts that encapsulate the contextual information
+            and environment dynamics,
+            coupled with dialogue examples, the LLM performs a two-way translation.
+            This translation facilitates the transformation
+            between action code and the respective voice messages
+            from both pedestrians and the robot.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
 
     <div class="columns is-centered">
 
@@ -265,66 +305,122 @@
       <!-- Animation. -->
       <div class="columns is-centered">
         <div class="column is-full-width">
-          <h2 class="title is-3">Experiment</h2>
+          <h2 class="title is-3">ROS simulation with TurtleBot</h2>
 
           <!-- Re-rendering. -->
-          <h3 class="title is-4">ROS simulation with TurtleBot 3</h3>
-          <div class="content has-text-justified">
-            <p>
-              ROS simulation
-            </p>
-          </div>
-
-          <p>ROS simulation with TurtleBot 3 in Hallway and Crosswalk environment</p>
+          <h3 class="title is-4">Crosswalk Environment</h3>
           <br>
           <div class="columns is-vcentered interpolation-panel">
             <div class="column  has-text-centered">
               <video autoplay controls muted loop playsinline height="100%">
-                <source src="static/images/multi_2_drone.mp4" type="video/mp4">
+                <source src="static/videos/hallway_active.mp4" type="video/mp4">
               </video>
-              <p>Drone</p>
+              <p>
+                Proactive made by robot
+                <br>
+                Robot: "Could you move to your right please?"
+                <br>
+                Pedestrian: "Sure I will do that!"
+              </p>
             </div>
             <div class="column  has-text-centered">
               <video autoplay controls muted loop playsinline height="100%">
-                <source src="static/images/multi_2_locobot.mp4" type="video/mp4">
+                <source src="static/videos/hallway_passive_on_your_left.mp4" type="video/mp4">
               </video>
-              <p>LoCoBot</p>
+              <p>
+                Proactive made by pedestrian
+                <br>
+                Pedestrian: "On your left!"
+                <br>
+                Robot: "I will shift to my right."
+              </p>
+            </div>
+          </div>
+          <div class="columns is-vcentered interpolation-panel">
+            <div class="column  has-text-centered">
+              <video autoplay controls muted loop playsinline height="100%">
+                <source src="static/videos/hallway_passive_moving_towards_your_right_side.mp4" type="video/mp4">
+              </video>
+              <p>
+                Proactive made by pedestrian
+                <br>
+                Pedestrian: "Moving towards your right side!"
+                <br>
+                Robot: "I shift to the left then."
+              </p>
+            </div>
+            <div class="column  has-text-centered">
+              <video autoplay controls muted loop playsinline height="100%">
+                <source src="static/videos/hallway_passive_on_your_right.mp4" type="video/mp4">
+              </video>
+              <p>
+                Proactive made by pedestrian
+                <br>
+                Pedestrian: "On your right!"
+                <br>
+                Robot: "I will move to my left."
+              </p>
             </div>
           </div>
 
-          <p>Move to the window</p>
+          <h3 class="title is-4">Crosswalk Environment</h3>
           <br>
           <div class="columns is-vcentered interpolation-panel">
             <div class="column  has-text-centered">
               <video autoplay controls muted loop playsinline height="100%">
-                <source src="static/images/multi_3_drone.mp4" type="video/mp4">
+                <source src="static/videos/crosswalk_active.mp4" type="video/mp4">
               </video>
-              <p>Drone</p>
+              <p>
+                Proactive made by robot
+                <br>
+                Robot: "Could you please stop so I can pass?"
+                <br>
+                Pedestrian: "Sure, go ahead!"
+                <br>
+              </p>
             </div>
             <div class="column  has-text-centered">
               <video autoplay controls muted loop playsinline height="100%">
-                <source src="static/images/multi_3_locobot.mp4" type="video/mp4">
+                <source src="static/videos/crosswalk_passive_could_you_let_me_pass_first.mp4" type="video/mp4">
               </video>
-              <p>LoCoBot</p>
+              <p>
+                Proactive made by pedestrian
+                <br>
+                Pedestrian: "Could you let me pass first?"
+                <br>
+                Robot: "Of course, I will stop."
+              </p>
             </div>
           </div>
 
-          <p>Move to the television</p>
-          <br>
           <div class="columns is-vcentered interpolation-panel">
             <div class="column  has-text-centered">
               <video autoplay controls muted loop playsinline height="100%">
-                <source src="static/images/multi_4_drone.mp4" type="video/mp4">
+                <source src="static/videos/crosswalk_passive_I_am_already_late_for_my_work.mp4" type="video/mp4">
               </video>
-              <p>Drone</p>
+              <p>
+                Proactive made by pedestrian
+                <br>
+                Pedestrian: "I am already late for my work!"
+                <br>
+                Robot: "Ok I will stop."
+              </p>
             </div>
             <div class="column  has-text-centered">
               <video autoplay controls muted loop playsinline height="100%">
-                <source src="static/images/multi_4_locobot.mp4" type="video/mp4">
+                <source src="static/videos/crosswalk_passive_I_am_in_a_hurry.mp4" type="video/mp4">
               </video>
-              <p>LoCoBot</p>
+              <p>
+                Proactive made by pedestrian
+                <br>
+                Pedestrian: "I am in a hurry!"
+                <br>
+                Robot: "Ok, I will stop to left you pass."
+              </p>
             </div>
           </div>
+
+
         </div>
       </div>
     </div>
